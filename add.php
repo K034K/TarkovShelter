@@ -63,6 +63,10 @@ if (!$result) {
                            placeholder="Enter time">
                 </div>
                 <button type="submit" class="btn btn-primary ">Submit</button>
+                <?php
+                    $sql = "INSERT INTO Receipt (Created_item, Module, module_lvl, price, creation_time)
+                    VALUES (name, module, module_lvl, price, time)";
+                ?>
             </form>
         </div>
     </div>

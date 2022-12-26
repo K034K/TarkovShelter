@@ -13,33 +13,45 @@ if (!$result) {
 }
 
 ?>
-<script>
-    console.log(<?php echo json_encode($result) ?>);
-</script>
 
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <form action="includes/add_receipt.php" method="post">
+
                 <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
-                    <input type="text" class="form-control" name="name" id="exampleInputEmail1"
-                           aria-describedby="emailHelp" placeholder="Enter name">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Items needed</label>
-
-                    <select name="Items">
+                    <select name="name" id="selectMenu" class="form-select">
                         <option value="0">Select items</option>
                         <?php
                         foreach ($result as $row) {
                             ?>
-
-                            <option value="<?php echo $row['Item_id']; ?>"><?php echo $row['Item_name']; ?></option>
+                            <option value="<?php echo $row['Item_name']; ?>"><?php echo $row['Item_name']; ?></option>
                             <?php
                         }
                         ?>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Item</label>
+
+                    <select name="Items" id="selectMenu" class="form-select">
+                        <option value="0">Select items</option>
+                        <?php
+                        foreach ($result as $row) {
+                            ?>
+                            <option value="<?php echo $row['Item_name']; ?>"><?php echo $row['Item_name']; ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                    <label for="exampleInputPassword1">Items needed for craft</label>
+                    <input type="text" class="form-control" name="items_needed" id="exampleInputPassword1"
+                           placeholder="Enter items needed">
+                    <label for="exampleInputPassword1">IsTool</label>
+                    <input type="checkbox" name="isTool" id="exampleInputPassword1"
+                           placeholder="Enter isTool">
                 </div>
 
                 <div class="form-group">
@@ -62,14 +74,48 @@ if (!$result) {
                     <input type="text" class="form-control" name="time" id="exampleInputPassword1"
                            placeholder="Enter time">
                 </div>
-                <button type="submit" class="btn btn-primary ">Submit</button>
-                <?php
-                    $sql = "INSERT INTO Receipt (Created_item, Module, module_lvl, price, creation_time)
-                    VALUES (name, module, module_lvl, price, time)";
-                ?>
+
+                <input type="submit" class="btn btn-primary " onclick="addReceipt()" name="submit" value="Submit">
+
             </form>
         </div>
     </div>
 </div>
+
+<script>
+
+    function addReceipt() {
+        <?php
+        if (isset($_POST['submit'])) {
+            $name = $_POST['name'];
+            $module = $_POST['module'];
+            $module_lvl = $_POST['module_lvl'];
+            $price = $_POST['price'];
+            $time = $_POST['time'];
+            $query = "INSERT INTO `Receipt` (`Receipt_id`, `Created_item`, `Module`, `module_lvl`, `price`, `creation_time(min)`) VALUES (NULL, '$name', '$module', '$module_lvl', '$price', '$time')";
+            $result = mysqli_query($GLOBALS['con'], $query);
+
+            $query = "SELECT * FROM Receipt where Created_item = '$name'";
+            $result = mysqli_query($GLOBALS['con'], $query);
+            $row = mysqli_fetch_assoc($result);
+            $receipt_id = $row['Receipt_id'];
+
+            $item_name = $_POST['Items'];
+            $items_needed = $_POST['items_needed'];
+            $isTool = $_POST['isTool'];
+            $query = "INSERT INTO `Receipt_list` (`Receipt_id`, `Item_id`, `Items_needed`, `isTool`) VALUES ($receipt_id, '$item_name', '$items_needed', '$isTool')";
+            $result = mysqli_query($GLOBALS['con'], $query);
+            if (!$result) {
+                printf("Error: %s\n", mysqli_error($GLOBALS['con']));
+                exit();
+            }
+        }
+        ?>
+    }
+</script>
+<?php
+
+?>
+
 
 <?php include("includes/footer.php"); ?>

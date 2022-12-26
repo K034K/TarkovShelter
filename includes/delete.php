@@ -9,4 +9,10 @@ function deleteFromTable($table, $id) {
         echo "Error";
     }
 }
+
+if(isset($_POST['delete'])) {
+    $table = $_POST['table'];
+    $id = $_POST['receipt_id'];
+    deleteFromTable($table, $id);
+}
 ?>

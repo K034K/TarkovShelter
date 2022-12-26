@@ -4,11 +4,11 @@
 <?php
 // all items from receipt list
 $query = "SELECT * FROM Receipt";
-$requst_receipt = mysqli_query($con, $query);
+$requst_receipt = mysqli_query($GLOBALS['con'], $query);
 $subquery = "SELECT * FROM `Items for Recepts`";
-$requst_items_for_recepts = mysqli_query($con, $subquery);
+$requst_items_for_recepts = mysqli_query($GLOBALS['con'], $subquery);
 if (!$requst_items_for_recepts) {
-    printf("Error: %s\n", mysqli_error($con));
+    printf("Error: %s\n", mysqli_error($GLOBALS['con']));
     exit();
 }
 

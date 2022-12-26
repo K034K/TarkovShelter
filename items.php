@@ -18,11 +18,11 @@ $result = mysqli_query($con, $query);
 
 <?php
 while ($row = mysqli_fetch_array($result)) {
-    echo '<tr>
-    <th scope="row">' . $row['Item_id'] . '</th>
-    <td>' . $row['Item_name'] . '</td>
-    <td>' . $row['min_price'] . '</td>
-    </tr>';
+    echo sprintf("<tr>
+    <th scope=\"row\">%s</th>
+    <td>%s</td>
+    <td>%s</td>
+    </tr>", $row['Item_id'], $row['Item_name'], $row['min_price']);
 }
 ?>
 </tbody>

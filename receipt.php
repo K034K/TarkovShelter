@@ -54,7 +54,7 @@ if (!$requst_items_for_recepts) {
                 </td>
                 <td> <?php echo $row['price'] ?></td>
                 <td><?php echo $row['creation_time(min)'] ?></td>
-                <td><a class="btn btn-secondary" href="update.php?receipt_id=' . $row['Receipt_id'] . '">Update</a></td>
+                <td><a class="btn btn-secondary" href="update.php?receipt_id=<?php echo $row['Receipt_id']?>">Update</a></td>
                 <td>
                     <input type="button" class="btn btn-danger" value="Delete"
                            onclick="delete_receipt(<?php echo $row['Receipt_id'] ?>)">

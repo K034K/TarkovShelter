@@ -4,7 +4,9 @@
 // all items from items list
 $query = "SELECT * FROM items";
 $result = mysqli_query($con, $query);
-echo '<table class="table">
+
+?>
+<table class="table">
 <thead>
 <tr>
   <th scope="col">id</th>
@@ -14,8 +16,7 @@ echo '<table class="table">
 </thead>
 <tbody>
 
-';
-
+<?php
 while ($row = mysqli_fetch_array($result)) {
     echo '<tr>
     <th scope="row">' . $row['Item_id'] . '</th>
@@ -23,8 +24,9 @@ while ($row = mysqli_fetch_array($result)) {
     <td>' . $row['min_price'] . '</td>
     </tr>';
 }
-echo '</tbody>
-</table>';
 ?>
+</tbody>
+</table>
+
 
 <?php include("includes/footer.php"); ?>

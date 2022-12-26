@@ -65,7 +65,7 @@ if (!$result) {
                 <button type="submit" class="btn btn-primary ">Submit</button>
                 <?php
                     $sql = "INSERT INTO Receipt (Created_item, Module, module_lvl, price, creation_time)
-                    VALUES (name, module, module_lvl, price, time)";
+                    VALUES ($_GET['name'], $_GET['module'], $_GET['module_lvl'], $_GET['price'], $_GET['time'])";
                 ?>
             </form>
         </div>

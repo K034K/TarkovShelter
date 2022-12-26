@@ -24,15 +24,17 @@ echo '<div class="container">
 <div class="form-group">
 <label for="exampleInputPassword1">Items needed</label>
 ';
-echo '<div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-Items
-</button>
-<ul class="dropdown-menu"';
-while ($row = mysqli_fetch_array($result)) {
-    echo '<li><a class="dropdown-item" href="#">' . $row['Item_name'] . '</a></li>';
+<select name="Items">
+    <option value="0">Select items</option>
+<?
+$result = mysql_query('select `item_id`, `item_name` from `Items`');
+while($row = mysql_fetch_assoc($result)){
+    ?>
+    <option value="<?=$row['item_id']?>"><?=$row['item_name']?></option>
+    <?
 }
-echo '</ul>
+?>
+</select>
 </div>';
 echo '</div>
 <div class="form-group">
